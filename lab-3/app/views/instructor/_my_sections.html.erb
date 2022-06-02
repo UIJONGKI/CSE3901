@@ -1,0 +1,57 @@
+<% @sections = mySections %>
+<% @semesters = @sections.distinct.pluck(:term) %>
+<ul class="sub-section-board-nav">
+  <li class="col sub-section-board-nav-course-name">Course Name & Section Number</li>
+  <li class="col sub-section-board-nav-section-buliding">Location</li>
+  <li class="col sub-section-board-nav-section-buliding">Graders</li>
+  <li class="col sub-section-board-nav-section-section-schedule">Schedule</li>
+  <li class="col sub-section-board-nav-section-edit">View</li>
+</ul>
+<% @semesters.each do |semester| %>
+  <% @sections.where(term: semester).each do |section| %>
+    <div class="sub-section-board">
+      <div class="col sub-section-course-name">
+        <%= 'CSE ' + section.course.courseNumber.to_s %>
+        <br>
+        <%= section.course.courseName %>
+        <br>
+        <%= 'Section # ' + section.sectionNumber.to_s %>
+      </div>
+      <div class="col sub-section-section-buliding">
+        <%if section.buildingAndRoom?-%>
+          <%= section.buildingAndRoom %>
+        <%else-%>
+          -
+        <%end%>
+      </div>
+      <div class="col sub-section-section-buliding">
+        <% @graders = myGraders(section.id).pluck(:grader_id) %>
+        <ol>
+        <% for n in 0..(section.numGradersNeeded-1) do%>
+          <li style = "list-style: decimal;">
+          <% if @graders and n<@graders.length-%>
+            (assigned)
+          <% else-%>
+            (unassigned)
+          <% end %>
+          </li>
+        <% end %>
+        </ol>
+      </div>
+      <div class= "col sub-section-section-schedule">
+        <% if section.term? %>
+          <%= section.term %>
+        <% else %>
+          -
+        <% end %>
+        <br>
+        <% section.section_schedules.each do |section_schedule|%>
+            <%= section_schedule.weekday + ": " + prettyTime(Time.at(section_schedule.startTime)) + " to " + prettyTime(Time.at(section_schedule.endTime))%>
+        <% end %>
+      </div>
+      <div class="col sub-section-section-edit">
+        <p><%= link_to 'View Section', section %></p>
+      </div>
+    </div>
+  <% end %>
+<% end %>

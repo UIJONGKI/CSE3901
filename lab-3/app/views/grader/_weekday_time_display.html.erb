@@ -1,0 +1,49 @@
+		<!-- We want to convert the stored start times into hours and minutes, and into string version -->
+		<% availabilityHourStart = period.start/60 %>
+		<% availabilityMinuteStart = period.start - (availabilityHourStart*60) %>
+		
+		<!-- This code determines a.m. and p.m. - note that 720 minutes is 12 pm -->
+		<!-- If it's during pm, we also want to subtract 12 from the hour (usually) -->
+		<% timeOfDayStart = "am" %>
+		<% if period.start >= 720 %>
+			<% timeOfDayStart = "pm" %>
+			<% availabilityHourStart = availabilityHourStart - 12 %>
+		<% end %>
+		
+		<!-- Note that if time/60 = 0 (or if we subtract 12 and get 0), that should be the hour 12:00 -->
+		<% if availabilityHourStart == 0 %>
+			<% availabilityHourStart = "12" %>
+		<% end %>
+		
+		<!-- Also, make sure to pad the minute with zeroes if needed -->
+		<% if availabilityMinuteStart < 10 %>
+			<% availabilityMinuteStart = "0" + availabilityMinuteStart.to_s %>
+		<% end %>
+		
+		
+		<!-- Do the same for the end times -->
+		<% availabilityHourEnd = period.end/60 %>
+		<% availabilityMinuteEnd = period.end - (availabilityHourEnd*60) %>
+		
+		<!-- am/pm code, subtracting 12 if pm -->
+		<% timeOfDayEnd = "am" %>
+		<% if period.end >= 720 %>
+			<% timeOfDayEnd = "pm" %>
+			<% availabilityHourEnd = availabilityHourEnd - 12 %>
+		<% end %>
+		
+		<!-- change 0 to 12 -->
+		<% if availabilityHourEnd == 0 %>
+			<% availabilityHourEnd = 12 %>
+		<% end %>
+		
+		<!-- padding the minutes if less than 10 -->
+		<% if availabilityMinuteEnd < 10 %>
+			<% availabilityMinuteEnd = "0" + availabilityMinuteEnd.to_s %>
+		<% end %>
+
+		
+		<!-- Display our converted times-->
+		<!-- Use of .to_s needed to force everything into a string-->
+		<%= availabilityHourStart.to_s + ':' + availabilityMinuteStart.to_s + ' ' +  timeOfDayStart + ' - ' + availabilityHourEnd.to_s + ':' + availabilityMinuteEnd.to_s + ' ' + timeOfDayEnd %>
+		<br>

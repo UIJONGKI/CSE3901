@@ -1,0 +1,72 @@
+<html>
+	<head>
+		<title>Set Game Online</title>
+		<meta charset="utf-8">
+		<link rel="stylesheet" type="text/css" href="./css/reset.css">
+		<link rel="stylesheet" type="text/css" href="./css/main.css">
+	</head>
+	<body>
+
+		<div class="wrapper">
+			<div class="header-section">
+				<div class="container">
+					<div class="header">
+						<!--The home name-->
+						<div class="home-name">
+							<div class="container">X6 Set Game</div>
+						</div>
+					</div>
+				</div>	
+			</div>
+			<!--The contents part-->
+			<div class="main">
+				<p id="notification">Please choose one of the following two modes to begin the game.</p>
+				<div id="start_buttons">
+					<span class="button" id="sp_button">Singleplayer</span><span class="button" id="mp_button">Two-player mode</span>
+				</div>
+				<div class="content">
+					<!--The game menu section-->
+					<div class="game-menu">
+						<!--href will let the js happens for the each menu-->
+						<p id="cards_in_deck">Cards in deck: 81</p>
+						<p id="count_up_timer">Game time: </p>
+						
+						<p class="button" id="addCards">Draw 3 cards</p>
+						<p class="button" id="setcheck">Check set</p>
+						
+						<!--Only appears in singleplayer mode-->
+						<p id="singleplayer_score"></p>
+						
+						<!--Player list and score list only appear in multiplayer mode-->
+						<form id="player_list">
+						</form>
+						
+						<div id="score_list">
+						</div>
+					</div>
+					
+					<!--The card section-->
+					<!--The JavaScript for handling JS action such as changing the card and adding other cards-->
+					<div class="game">
+						<form method="post" name="set-form" id="set-form" action="#">
+							<!--The card list html-->
+							<table id="set-list">
+							</table>
+						</form>
+					</div>
+				</div>
+			</div>
+			<!--Footer section-->
+			<footer class="footer">
+				<div class="footer-copyright">
+					<div class="container">
+						<div class="content">
+							<p>Developed by Team X6</p>
+						</div>
+					</div>
+				</div>
+			</footer>
+		</div>
+		<script src = "master.js"></script>
+	</body>
+</html>

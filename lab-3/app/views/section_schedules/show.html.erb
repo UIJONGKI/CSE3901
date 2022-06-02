@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Weekday:</strong>
+  <%= @section_schedule.weekday %>
+</p>
+
+<p>
+  <strong>Start:</strong>
+  <%= prettyTime(Time.at(@section_schedule.startTime)) %>
+</p>
+
+<p>
+  <strong>End:</strong>
+  <%= prettyTime(Time.at(@section_schedule.endTime)) %>
+</p>
+
+<%= link_to 'Edit', edit_section_schedule_path(@section_schedule) %> |
+<%= link_to 'Back', section_schedules_path %>

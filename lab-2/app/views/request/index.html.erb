@@ -1,0 +1,43 @@
+<div class="sub-request-container">
+  <div class="sub-request-title">
+    <h3>Request Role</h3>
+  </div>
+  <div class="row">
+    <ul class="sub-request-board-nav">
+      <li class="sub-request-board-nav-old-usertype">
+        Current User Type
+      </li>
+      <li class="sub-request-board-nav-new-usertype">
+        New User Type
+      </li>
+    </ul>
+    <div class="col-9">
+      <div class="sub-request-board">
+        <div class="col sub-request-text-old-usertype">
+          <%= current_user.roles_name[0]%>
+        </div>
+        <div class="col sub-request-text-new-usertype">
+          <form action="request/<%=current_user.id%>/update" method="post">
+            <label for="user_type">User Type: </label>
+            <select id="user_type" name="user_type">
+              <option value="student">student</option>
+              <option value="professor">professor</option>
+              <option value="admin">admin</option>
+            </select>
+            <input type="submit" value="request">
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- <form action="request/<%=current_user.id%>/update" method="post">
+  <label for="user_type">User Type: </label>
+  <select id="user_type" name="user_type">
+    <option value="student">student</option>
+    <option value="professor">professor</option>
+    <option value="admin">admin</option>
+  </select>
+  <input type="submit" value="request">
+</form>
+ -->

@@ -1,0 +1,24 @@
+<div class="sub-course-show-container-two">
+  <div class="sub-course-title">
+    <h3>Sections in Need of Graders</h3>
+  </div>
+  
+  <div id="pretext">
+  You can also view the list of current grader assignments here: 
+  <%= link_to 'Assigned Graders', '/assigned_graders' %>
+  </div> <br>
+  
+  <div class="row">
+    <ul class="sub-section-board-nav">
+      <li class="col sub-section-board-nav-course-name">Course Name</li>
+      <li class="col sub-section-board-nav-section-instructor">Instructor</li>
+      <li class="col sub-section-board-nav-section-buliding">Location</li>
+      <li class="col sub-section-board-nav-section-graders-need">Graders Assigned</li>
+      <li class="col sub-section-board-nav-section-graders-need">Total Graders Needed</li>
+      <li class="col sub-section-board-nav-section-section-schedule">Schedule</li>
+      <li class="col sub-section-board-nav-section-edit">Show</li>
+    </ul>
+  </div>
+	<%= render 'section_list_for_assignment' %>
+</div>
+

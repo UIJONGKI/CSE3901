@@ -1,0 +1,56 @@
+<div class="sub-application-container">
+  <div class="sub-application-title">
+    <h3>Courses</h3>
+  </div>
+  <div class="row">
+    <ul class="sub-application-board-nav">
+      <li class="col sub-application-board-nav-email">Course Number</li>
+      <li class="col sub-application-board-nav-qualification">Course Name</li>
+      <li class="col sub-application-board-nav-interest">Section</li>
+      <li class="col sub-application-board-nav-recommendation">Schedules</li>
+      <li class="col sub-application-board-nav-info">Student Info</li>
+    </ul>
+    <div class="col-9">
+
+      <% @courses.each do |course| %>
+      <% if course.sections.any? %>
+      <% x = 0 %> <% y = 0 %>
+      <% while x < course.sections.length %>
+      <div class="sub-application-board">
+        <div class="col sub-application-text-email">
+          CSE <%= course.courseNumber %>
+        </div>
+        <div class="col sub-application-text-qualification">
+          <%= course.courseName %>
+        </div>
+        <div class="col sub-application-text-interest">
+          <%= course.sections[x].sectionNumber %>
+        </div>
+        <div class="col sub-application-text-recommendation">
+          <% if course.sections[x].section_schedules.any? %>
+          <% while y < course.sections[x].section_schedules.length %>
+          <%= course.sections[x].section_schedules[y].weekday + ": " + prettyTime(Time.at(course.sections[x].section_schedules[y].startTime)) + " to " + prettyTime(Time.at(course.sections[x].section_schedules[y].endTime))%>
+          <% y = y + 1 %>
+          <% end %>
+          <% y = 0 %>
+          <% else %>
+          <%= "no schedule" %>
+          <% end %>
+        </div>
+        <div class="col sub-application-text-info">
+          <form action="update" method="post">
+            <select id="section_id" name="section_id" style="display: none;">
+              <option value="<%= course.sections[x].id%>"><%= course.sections[x].id%></option>
+            </select>
+            <input type="submit" value="update">
+          </form>
+        </div>
+        <% x = x+1 %>
+      </div>
+      <% end%>
+      <% end%>
+      <% end%>
+      
+    </div>
+    	<br>
+	</div>

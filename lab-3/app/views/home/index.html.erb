@@ -1,0 +1,26 @@
+<div id="main-container">
+	<h2>Container-Area</h2>
+	<% if user_signed_in? %>
+	<div id="class-list">
+		<% if current_user.has_any_role? %>
+			<% @role = Role.find_by id: current_user.role_ids %>
+			<%= 'Current User Role: ' + @role.name.upcase %>
+			<br><br>
+			
+			<% if @role.name? and (@role.name.upcase == 'INSTRUCTOR' or @role.name.upcase == 'PROFESSOR')%>
+				<%= render 'instructor/instructor_home' %>
+			<%end%>
+			
+			<%# Student/grader home view %>
+			<% if @role.name == 'student'%>
+				<%= render 'student_home' %>
+			<%end%>
+			
+		<% else %>
+			nothing
+		<% end %>
+	<% else %>
+		<div id="class-list">Not Login</div>
+	<% end %>
+	</div>
+</div>

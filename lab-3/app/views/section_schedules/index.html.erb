@@ -1,0 +1,50 @@
+<div id="main-container">
+<div id="class-list">
+
+<p id="notice"><%= notice %></p>
+
+<h3><%= 'Editing Schedule for Section of CSE ' + @section.course.courseNumber.to_s %></h3>
+
+<br>
+Delete section times or add new ones here.
+<br><br>
+
+<table>
+  <thead>
+    <tr>
+      <th>Weekday</th>
+      <th>Start</th>
+      <th>End</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @section_schedules.each do |section_schedule| %>
+      <tr>
+        <td><%= section_schedule.weekday %></td>
+        <td><%= prettyTime(section_schedule.startTime) %></td>
+        <td><%= prettyTime(section_schedule.endTime) %></td>
+        <td><%= button_to 'Destroy', '/section_schedules/' + section_schedule.id.to_s + '/delete', method: :put %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+Use the form below to add a new time to this section's schedule.
+<br>
+
+<%= render 'form' %>
+
+<br>
+
+<%= link_to 'Return to Section', '/sections/' + @section.id.to_s %>
+<%= link_to 'Return to Parent Course', '/courses/' + @section.course_id.to_s %>
+<%= link_to 'Link to edit other section details', '/sections/' + @section.id.to_s + '/edit' %>
+
+</div>
+</div>
+
+
+

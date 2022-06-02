@@ -1,0 +1,47 @@
+html, body, div, span, p, img, label, 
+table, tbody, tfoot, thead, tr, th, td, 
+footer {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+html, body {
+	height: 100%;
+
+}
+body {
+	line-height: 1;
+	font-family: "Andale Mono", monospace;
+	font-size: 17px;
+	font-weight: 300;
+	color: gray;
+}
+div {
+	display: block;
+}
+table {
+	display: table;
+	border-collapse: separate;
+	box-sizing: border-box;
+	text-indent: initial;
+	border-spacing: 2px;
+	border-color: grey;
+}
+tbody {
+	display: table-row-group;
+	vertical-align: middle;
+	border-color: inherit;
+	margin: 0 auto;
+}
+tr {
+	display: table-row;
+	vertical-align: inherit;
+	border-color: inherit;
+}
+form {
+	display: block;
+	margin-top: 0em;
+}

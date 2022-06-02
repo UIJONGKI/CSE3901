@@ -1,0 +1,55 @@
+<div class="sub-application-container">
+	<div class="sub-application-title">
+		<h3>Assigned Graders</h3>
+	</div>
+	
+	<div id="pretext">
+	This is a list of all grader assignments made so far. 
+	</div><br>
+	
+	<div class="row">
+		<ul class="sub-application-board-nav">
+			<li class="col sub-application-board-nav-email">Student</li>
+			<li class="col sub-application-board-nav-qualification">Course</li>
+			<li class="col sub-application-board-nav-interest">Section</li>
+			<li class="col sub-application-board-nav-recommendation">Instructor</li>
+			<li class="col sub-application-board-nav-info">Edit</li>
+		</ul>
+		<div class="col-9">
+			<% x = 0 %>
+			<% @grader_assignments.each do |grader_assignment| %>
+			<% while x < grader_assignment.grader.sections.length %>
+			<div class="sub-application-board">
+				<div class="col sub-application-text-email">
+					<%= grader_assignment.grader.user.email %>
+					<br>
+					<% if grader_assignment.grader.user.first_name? && grader_assignment.grader.user.last_name? %>
+					<%= grader_assignment.grader.user.first_name %>
+					<%= grader_assignment.grader.user.last_name %>
+					<% else %>
+					-
+					<% end %>
+					
+				</div>
+				<div class="col sub-application-text-qualification">
+					<%= "CSE " %>
+					<%= grader_assignment.grader.sections[x].course.courseNumber %>
+				</div>
+				<div class="col sub-application-text-interest">
+					<%= grader_assignment.grader.sections[x].sectionNumber %>
+				</div>
+				<div class="col sub-application-text-recommendation">
+					<%= grader_assignment.grader.sections[x].instructorEmail %>
+					<p><%= grader_assignment.grader.sections[x].instructor %></p>
+				</div>
+				<div class="col sub-application-text-info">
+					<p><%= button_to "Delete", assigned_grader_path(grader_assignment), method: :delete %></p>
+				</div>
+			</div>
+			<% x = x+1 %>
+			<% end %>
+			<% x = 0 %>
+			<% end %>
+		</div>
+	</div>
+</div>

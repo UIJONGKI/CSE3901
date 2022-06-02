@@ -1,0 +1,139 @@
+<p id="notice"><%= notice %></p>
+
+
+<div class="sub-section-container">
+  <div class="sub-section-title">
+    <h3>Section of <%= 'CSE ' + @section.course.courseNumber.to_s %> </h3>
+  </div>
+  
+  <div id="pretext">
+  <%= link_to 'Link to parent course', '/courses/'+@section.course_id.to_s %>
+  </div>
+  <br>
+  
+  <div class="row">
+    <ul class="sub-section-board-nav">
+      <li class="col sub-section-board-nav-section-number">Section Number</li>
+      <li class="col sub-section-board-nav-section-instructor">Instructor</li>
+      <li class="col sub-section-board-nav-section-buliding">Location</li>
+      <li class="col sub-section-board-nav-section-graders-need">Graders Assigned</li>
+      <li class="col sub-section-board-nav-section-graders-need">Total Graders Needed</li>
+      <li class="col sub-section-board-nav-section-section-schedule">Schedules</li>
+      <li class="col sub-section-board-nav-section-edit">Edit</li>
+    </ul>
+    <div class="col-9">
+      <div class="sub-section-board">
+        <div class="col sub-section-section-number">
+          <%= @section.sectionNumber %>
+        </div>
+        <div class="col sub-section-section-instructor">
+          <% if @section.instructor? %>
+            <%= @section.instructor %>
+          <% else %>
+            -
+          <% end %>
+          <br>
+          <% if @section.instructorEmail? %>
+            <%= @section.instructorEmail %>
+          <% else %>
+            -
+          <% end %>
+        </div>
+        <div class="col sub-section-section-buliding">
+          <% if @section.buildingAndRoom? %>
+            <%= @section.buildingAndRoom %>
+          <% else%>
+            Unassigned
+          <% end %>
+        </div>
+        <div class="col sub-section-section-graders-need">
+    	<%= @section.grader_assignments.length %>
+  	</div>
+        <div class="col sub-section-section-graders-need">
+          <%= @section.numGradersNeeded %>
+        </div>
+        <div class="col sub-section-section-schedule">
+          <% if @section.term? %>
+            <%= @section.term %>
+          <% else %>
+            -
+          <% end %>
+          <br>
+          <% if !@section.section_schedules.empty? %>
+          	<% @section.section_schedules.each do |section_schedule|%>
+          	<p>
+            	<%= section_schedule.weekday + ": " + prettyTime(Time.at(section_schedule.startTime)) + " to " + prettyTime(Time.at(section_schedule.endTime))%>
+          	</p>
+          	<% end %>
+          <% else %>
+          	<p> No Schedule </p>
+          <% end %>
+        </div>
+        <div class="col sub-section-section-edit">
+          <% if current_user.roles_name[0] == "admin"%>
+          <p><%= link_to 'Edit', edit_section_path(@section) %></p>
+          <p></p>
+          <p><%= link_to 'Edit Schedule', '/sections/' + @section.id.to_s + '/schedule_edit' %></p>
+          <p></p>
+          <% end %>
+          <p><%= link_to 'Parent Course', '/courses/'+@section.course_id.to_s %></p>
+        </div>
+      </div>    
+    </div>
+  </div>
+  
+  <br>
+  
+  <div class="sub-section-title">
+    <h3>Assigned Graders</h3>
+  </div>
+  <div class="row">
+    <ul class="sub-application-board-nav">
+	<li class="col sub-application-board-nav-email">Name</li>
+	<%# Only want recommendation and grader profile links to be visible by admins %>
+	<% if current_user.roles_name[0] == 'admin' %>
+	<li class="col sub-application-board-nav-recommendation">Has Recommendation?</li>
+	<li class="col sub-application-board-nav-info">Student Info</li>
+	<% end %>
+    </ul>
+    <div class="col-9">
+			
+		<% @section.graders.each do |grader| %>
+			<div class="sub-application-board">
+				<div class="col sub-application-text-email">
+					<%if grader.user.first_name? && grader.user.last_name? %>
+    					<%= grader.user.first_name + ' ' + grader.user.last_name %>
+    					<% else %>
+    					-
+    					<% end %>
+					<br>
+					<%= grader.user.email %>
+				</div>
+				
+				<%# Only want recommendation and grader profile links to be visible by admins %>
+				<% if current_user.roles_name[0] == 'admin' %>
+				
+				<div class="col sub-application-text-recommendation">
+					<!-- Print links to each recommendation, if the student has been written a recommendation -->
+					<% reccs = Recommendation.where(["email = ?", grader.user.email]) %>
+					<% if reccs.length > 0 %>
+						<%= "Yes" %>
+						<% reccs.each do |recommendation| %>
+							<%= link_to 'Link', '/recommendations/' + recommendation.id.to_s %>
+						<% end %>
+					<% else %>
+					<%= "No" %>
+					<% end %>
+				</div>
+				<div class="col sub-application-text-info">
+					<%= link_to 'View profile', grader_application_path(grader) %>
+				</div>
+				<% end %>
+			</div>
+		<% end %>	
+	</div> <!-- col-9 div -->
+  </div> <!-- row div -->
+  
+</div>
+<br><br>
+

@@ -1,0 +1,27 @@
+<%= form_for(createFormObjFromParam(:filter), 
+              method: :get, 
+              url: course_sections_path, 
+              html: {class: 'form'}) do |f| %>
+
+  <div class="form-group">
+    <%= f.label(:instructor, class: 'control-label') %>
+    <%= f.select :instructor, options("instructor").unshift('').sort! %>
+  </div>
+  
+  <div class="form-group">
+    <%= f.label(:term, class: 'control-label') %>
+    <%= f.select :term, Section.distinct.pluck(:term).unshift('') %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label(:positionsOpen)%>
+    <%= f.select :positionsOpen, ['', 'true', 'false'] %>
+
+  <div class="text-right">
+    <%= content_tag(:button,
+                    'Search',
+                    type: 'submit',
+                    class: 'btn btn-info') %>
+  </div>
+  </div>
+<% end %>

@@ -1,0 +1,7 @@
+<% @section_schedules.each do |schedule| %>
+<p>
+  <%= section_schedule.weekday + ": " + prettyTime(Time.at(section_schedule.startTime)) + " to " + prettyTime(Time.at(section_schedule.endTime))%>
+</p>
+
+<%= link_to 'Edit Schedule', edit_section_schedule_path(@section_schedule) %> |
+<% end %>

@@ -1,0 +1,13 @@
+<div id="main-container">
+<div id="class-list">
+
+<h3>
+<%= 'Creating New Section for CSE ' + @course.courseNumber.to_s %>
+</h3>
+<br>
+<%= render 'form', section: @section %>
+
+<%= link_to 'Back to Course', '/courses/' + @course.id.to_s %>
+
+</div>
+</div>

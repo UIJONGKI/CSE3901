@@ -1,0 +1,15 @@
+<div id="main-container">
+	<h2>Container-Area</h2>
+	<% if user_signed_in? %>
+	<div id="class-list">
+		<% if current_user.has_any_role? %>
+			<% @role = Role.find_by id: current_user.role_ids %>
+			<%= 'Current User Role: ' + @role.name.upcase %>
+		<% else %>
+			nothing
+		<% end %>
+	<% else %>
+		<div id="class-list">Not Login</div>
+	<% end %>
+	</div>
+</div>

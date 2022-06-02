@@ -1,0 +1,94 @@
+<div class="sub-section-edit-container">
+	<div class="sub-section-edit-title">
+		<h3>Editing Schedule Details</h3>
+	</div>
+	
+	<% if flash.any? %>
+		<% flash.each do |key, message| %>
+			Error: 
+			<%= message %>
+			<br>
+		<% end %>
+	<% end %>
+	
+You can review and remove your currently listed available times here.
+
+	<div class="field">
+	<div class = "sub-section-edit-all">
+	
+<!-- Create Monday list only if it exists -->
+<% if @mondays.length > 0 %>
+	<h3>Monday</h3>
+	<% @mondays.each do |period| %>
+		<!-- locals hash needed to pass |period| into the weekday_time_display partial -->
+		<%= render partial: "weekday_time_display_with_delete_links", locals: {period: period} %>
+	<% end %>
+<% end %>
+
+<!-- Do the same for lists of every other day -->
+<% if @tuesdays.length > 0 %>
+	<h3>Tuesday</h3>
+	<% @tuesdays.each do |period| %>
+		<%= render partial: "weekday_time_display_with_delete_links", locals: {period: period} %>
+	<% end %>
+<% end %>
+
+<% if @wednesdays.length > 0 %>
+	<h3>Wednesday</h3>
+	<% @wednesdays.each do |period| %>
+		<%= render partial: "weekday_time_display_with_delete_links", locals: {period: period} %>
+	<% end %>
+<% end %>
+
+<% if @thursdays.length > 0 %>
+	<h3>Thursday</h3>
+	<% @thursdays.each do |period| %>
+		<%= render partial: "weekday_time_display_with_delete_links", locals: {period: period} %>
+	<% end %>
+<% end %>
+
+<% if @fridays.length > 0 %>
+	<h3>Friday</h3>
+	<% @fridays.each do |period| %>
+		<%= render partial: "weekday_time_display_with_delete_links", locals: {period: period} %>
+	<% end %>
+<% end %>
+	
+	</div>
+	</div>	
+
+<!-- The part of the edit page where we can add a new time to the schedule -->
+Add a new time to your available grading schedule here.
+<%= form_with url: '/grader/schedule_edit', method: :put do |form| %>
+
+	<div class="field">
+	<div class = "sub-section-edit-all">
+	<%= form.label :weekday, "Day" %>
+	<%= form.select :weekday, ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"], include_blank: true %>
+	
+	<%= form.label :start_hour, "Start Hour" %>
+	<%= form.text_field :start_hour, size: 1 %>
+	<%= form.label :start_minute, "Start Minute" %>
+	<%= form.text_field :start_minute, size: 1 %>
+	<%= form.select :start_period, ["am", "pm"], include_blank: true %>
+	
+	<%= form.label :end_hour, "End Hour" %>
+	<%= form.text_field :end_hour, size: 1 %>
+	<%= form.label :end_minute, "End Minute" %>
+	<%= form.text_field :end_minute, size: 1 %>
+	<%= form.select :end_period, ["am", "pm"], include_blank: true %>
+
+	</div>
+	</div>
+	<br>
+
+	<div class="field">
+	<div class = "sub-section-edit-all">
+	<%= form.submit "Add Time" %>
+	</div>
+	</div>
+
+<% end %>
+
+<a href="/grader">Back to Profile</a>
+</div>

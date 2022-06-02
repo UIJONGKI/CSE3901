@@ -1,0 +1,28 @@
+
+<div id="pretext">
+<br>
+<p id="notice"><%= notice %></p>
+<%case current_user.roles_name[0]%>
+<%when 'instructor'%>
+  	Here, you can view a list of the recommendations you've written for students, and edit them.
+  	<%= button_to 'Create a New Recommendation', new_recommendation_path, method: :get %>
+  	<% @recommendations = @recommendations.where(instructor_id: current_user.id)%>
+<%when 'professor'%>
+  	<%= link_to 'New Recommendation', new_recommendation_path %>
+  	<% @recommendations = @recommendations.where(instructor_id: current_user.id)%>
+<%when 'admin'%>
+  	This is a list of all recommendations written by instructors that we have stored in the system.
+  <%@recommendations%>
+<%when 'grader'%>
+      	<% @recommendations = @recommendations.where(grader_id: current_user.id)%>
+<%when 'student'%>
+      	You can view your recommendations by professors here.
+      	<% @recommendations = @recommendations.where(grader_id: current_user.id)%>
+<%else-%>
+  	<%="ERROR"%>
+  	<%#error message here%>
+<%end%>
+
+</div>
+
+<%= render 'rec'%>

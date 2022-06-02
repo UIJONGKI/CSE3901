@@ -1,0 +1,48 @@
+
+
+<div class="sub-course-container">
+  <div class="sub-course-title">
+    <h3>Courses</h3>
+  </div>
+  <div class="filters">
+  <%= render 'filterC' %>
+  </div>
+  <div class="row">
+    <ul class="sub-course-board-nav">
+      <li class="col sub-course-board-nav-course-number">Course Number</li>
+      <li class="col sub-course-board-nav-course-name">Course Name</li>
+      <li class="col sub-course-board-nav-course-graders">In Class Graders</li>
+      <li class="col sub-course-board-nav-course-edit">View</li>
+    </ul>
+    <div class="col-9">
+
+      <% @courses.each do |course| %>
+      <div class="sub-course-board">
+        <div class="col sub-course-course-number">
+          CSE <%= course.courseNumber %>
+        </div>
+        <div class="col sub-course-course-name">
+          <%= course.courseName %>
+        </div>
+        <div class="col sub-course-course-graders">
+          <%= course.inClassGraders %>
+        </div>
+        <div class="col sub-course-course-edit">
+          <p><%= link_to 'Show', course %></p>
+          <% if current_user.roles_name[0] == "admin"%>
+          <p><%= link_to 'Edit', edit_course_path(course) %></p>
+          <p><%= button_to "Delete", course_path(course), method: :delete %></p>
+          <% end %>
+        </div>
+      </div>
+      <% end%>
+      
+    </div>
+    	
+    	<% if current_user.roles_name[0] == "admin"%>
+    	<%= link_to 'New Course', new_course_path , :class => "link-btn"%>
+    	
+	<%= button_to 'Reload Database', 'courses/reload', method: :get, data: { confirm: "Are you sure?" }, :class => "link-btn" %>
+	<% end %>
+	</div>
+	

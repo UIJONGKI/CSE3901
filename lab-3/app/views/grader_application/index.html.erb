@@ -1,0 +1,52 @@
+<div class="sub-application-container">
+	<div class="sub-application-title">
+		<h3>Grader applications</h3>
+	</div>
+	<div class="row">
+		<ul class="sub-application-board-nav">
+			<li class="col sub-application-board-nav-email">Email</li>
+			<li class="col sub-application-board-nav-qualification">Qualifications</li>
+			<li class="col sub-application-board-nav-interest">Interests</li>
+			<li class="col sub-application-board-nav-recommendation">Recommendation</li>
+			<li class="col sub-application-board-nav-info">Student Info</li>
+		</ul>
+		<div class="col-9">
+			
+			<% @graders.each do |grader| %>
+			<div class="sub-application-board">
+				<div class="col sub-application-text-email">
+					<%= grader.user.email %>
+				</div>
+				<div class="col sub-application-text-qualification">
+					<% if grader.qualified_courses.empty? %>
+					<%= "empty" %>
+					<% else %>
+					<%= grader.qualified_courses %>	
+					<% end %>
+				</div>
+				<div class="col sub-application-text-interest">
+					<% if grader.interested_courses.empty? %>
+					<%= "empty" %>
+					<% else %>
+					<%= grader.interested_courses %>
+					<% end  %>
+				</div>
+				<div class="col sub-application-text-recommendation">
+					<% if Recommendation.find_by(email: grader.user.email) != nil %>
+					<%= "Recommendation exist" %>
+					<a href="/recommendations">Link</a>
+					<% else %>
+					<%= "No recommendation" %>
+					<% end %>
+				</div>
+				<div class="col sub-application-text-info">
+					<%= link_to 'Info', grader_application_path(grader) %>
+					<%= link_to 'Add to section', edit_grader_application_path(grader) %>
+				</div>
+			</div>
+			<% end%>
+			
+		</div>
+		<%= link_to 'Assigned graders page', assigned_graders_path %>
+	</div>
+</div>

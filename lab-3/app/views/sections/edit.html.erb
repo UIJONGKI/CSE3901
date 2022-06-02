@@ -1,0 +1,13 @@
+<div class="sub-section-edit-container">
+	<div class="sub-section-edit-title">
+		<h3>Editing Section of <%=findFormattedCourseNumber(@section)%></h3>
+	</div>
+
+<div class = "sub-section-edit-all">
+<%= render 'form', section: @section %>
+<br>
+<%= link_to 'Return to Section', '/sections/' + @section.id.to_s %>
+<%= link_to 'Return to Parent Course', '/courses/' + @section.course_id.to_s %>
+<%= link_to 'Link to edit section schedule', '/sections/' + @section.id.to_s + '/schedule_edit' %>
+</div>
+</div>

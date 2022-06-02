@@ -1,0 +1,18 @@
+class User < ApplicationRecord
+  
+  rolify 
+  # Include default devise modules. Others available are:
+  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
+  devise :database_authenticatable, :registerable,
+         :recoverable, :rememberable, :validatable
+  after_create :assign_default_role
+
+  #Checks for email matching OSU format. Devise behind the scenes performs other validations like checking that password confirmation is the same as the first password input.
+  validates :email, format: {with: /[a-z]+\.[1-9]\d*@osu\.edu/, message: 'Must match OSU name.# format!'}
+  
+  has_one :grader
+
+  def assign_default_role
+    self.add_role(:student) if self.roles.blank?
+  end
+end

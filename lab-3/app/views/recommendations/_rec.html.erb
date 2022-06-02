@@ -1,0 +1,61 @@
+<div class="sub-rec-container">
+  <div class="sub-rec-title">
+    
+  </div>
+  <div class="row">
+    <ul class="sub-rec-board-nav">
+      <li class="col sub-rec-board-nav-grader-name">
+        Grader
+      </li>
+      <li class="col sub-rec-board-nav-instructor-name">
+        Instructor
+      </li>
+      <li class="col sub-rec-board-nav-showletter">
+        Show Letter
+      </li>
+      <% if current_user.roles_name[0] != 'student' %>
+      <li class="col sub-rec-board-nav-edit">
+        Edit
+      </li>
+      <li class="col sub-rec-board-nav-destroy">
+        Destroy
+      </li>
+      <% end %>
+    </ul>
+    <div class="col-9">
+      <% @recommendations.each do |recommendation| %>
+      <% if recommendation.grader_id-%>
+        <% grader=User.find(recommendation.grader_id)%>
+      <% else-%>
+        <% grader= nil%>
+      <%end%>
+      <% i_id = recommendation.instructor_id%>
+      <div class="sub-rec-board">
+        <div class="col sub-rec-grader-name">
+          <% if grader-%>
+            <%= getFullName(grader.id)%>
+          <% else-%>
+            -
+          <% end %>
+          <br>
+          <%= recommendation.email %>
+        </div>
+        <div class="col sub-rec-instructor-name">
+          <%= getFullName(i_id) %>
+        </div>
+        <div class="col sub-rec-showletter">
+          <p><%= link_to 'Show Letter', recommendation %></p>
+        </div>
+        <% if current_user.roles_name[0] != 'student' %>
+        <div class="col sub-rec-edit">
+          <p><%= link_to 'Edit', edit_recommendation_path(recommendation) %></p>
+        </div>
+        <div class="col sub-rec-destroy">
+          <p><%= button_to 'Destroy', recommendation,  data: { confirm: 'Are you sure?', method: :delete } %></p>
+        </div>
+        <% end %>
+      </div>
+      <% end %>
+    </div>
+  </div>
+</div>

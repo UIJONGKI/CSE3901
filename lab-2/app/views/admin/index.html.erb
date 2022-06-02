@@ -1,0 +1,37 @@
+<div class="sub-admin-container">
+	<div class="sub-admin-title">
+		<h3>Manage User Type</h3>
+	</div>
+	<div class="row">
+		<ul class="sub-admin-board-nav">
+			<li class="col sub-admin-board-nav-email">Email</li>
+			<li class="col sub-admin-board-nav-usertype">User Type</li>
+			<li class="col sub-admin-board-nav-request">Request</li>
+			<li class="col sub-admin-board-nav-edit">Edit</li>
+		</ul>
+		<div class="col-9">
+			
+			<% @users.each do |user| %>
+			<div class="sub-admin-board">
+				<div class="col sub-admin-text-email">
+					<%= user.email %>
+				</div>
+				<div class="col sub-admin-text-usertype">
+					Role: <%= user.roles_name[0]%>
+				</div>
+				<div class="col sub-admin-text-request">
+					<% if user.request != "" && user.request != nil%>
+					Request: <%= user.request %>
+					<% else %>
+					Request: none
+					<% end %>
+				</div>
+				<div class="col sub-admin-text-edit">
+					<%= link_to 'edit', edit_admin_path(user.id)%>
+				</div>
+			</div>
+			<% end%>
+			
+		</div>
+	</div>
+</div>

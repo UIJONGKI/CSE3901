@@ -1,0 +1,43 @@
+<div class="sub-admin-container">
+	<div class="sub-admin-title">
+		<h3>User Inform</h3>
+	</div>
+	<div class="row">
+		<ul class="sub-admin-board-nav">
+			<li class="col sub-admin-board-nav-email">Email</li>
+			<li class="col sub-admin-board-nav-usertype">User Type</li>
+			<li class="col sub-admin-board-nav-request">Request</li>
+			<li class="col sub-admin-board-nav-edit">Back</li>
+		</ul>
+		<div class="col-9">
+			<div class="sub-admin-board">
+				<div class="col sub-admin-text-email">
+					<%= @user.email %>
+				</div>
+				<div class="col sub-admin-text-usertype">
+					<form action="update" method="post">
+						<label for="user_type">User Type: </label>
+						<select id="user_type" name="user_type">
+							<option value="student">student</option>
+							<option value="instructor">instructor</option>
+							<option value="admin">admin</option>
+						</select>
+						<input type="submit" value="update">
+					</form>
+				</div>
+				<div class="col sub-admin-text-request">
+					<% if @user.request != "" && @user.request != nil%>
+					Request: <%= @user.request %>
+					<% else %>
+					Request: none
+					<% end %>
+				</div>
+				<div class="col sub-admin-text-edit">
+					<%= link_to "back", :back %>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+

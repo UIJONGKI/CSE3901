@@ -1,0 +1,73 @@
+<div class="sub-course-show-container-two">
+  <div class="sub-course-title">
+    <h3>Select a Grader for this Section of CSE <%= @section.course.courseNumber %></h3>
+  </div>
+  
+  <div id="pretext">
+  You can also view the list of current grader assignments here: 
+  <%= link_to 'Assigned Graders', '/assigned_graders' %>
+  <br>
+  <%= link_to 'Back to Course Select', '/assign_graders' %>
+  </div> 
+  <br>
+  
+  <div class="row">
+    <ul class="sub-application-board-nav">
+	<li class="col sub-application-board-nav-email">Email</li>
+	<li class="col sub-application-board-nav-qualification">Qualifications</li>
+	<li class="col sub-application-board-nav-interest">Interests</li>
+	<li class="col sub-application-board-nav-recommendation">Has Recommendation?</li>
+	<li class="col sub-application-board-nav-info">Student Info</li>
+    </ul>
+    <div class="col-9">
+			
+		<% @graders.each do |grader| %>
+			<div class="sub-application-board">
+				<div class="col sub-application-text-email">
+					<%if grader.user.first_name? && grader.user.last_name? %>
+    					<%= grader.user.first_name + ' ' + grader.user.last_name %>
+    					<% else %>
+    					-
+    					<% end %>
+					<br>
+					<%= grader.user.email %>
+				</div>
+				<div class="col sub-application-text-qualification">
+					<% if grader.qualified_courses.empty? %>
+					<%= "empty" %>
+					<% else %>
+					<%= grader.qualified_courses %>	
+					<% end %>
+				</div>
+				<div class="col sub-application-text-interest">
+					<% if grader.interested_courses.empty? %>
+					<%= "empty" %>
+					<% else %>
+					<%= grader.interested_courses %>
+					<% end  %>
+				</div>
+				<div class="col sub-application-text-recommendation">
+					<!-- Print links to each recommendation, if the student has been written a recommendation -->
+					<% reccs = Recommendation.where(["email = ?", grader.user.email]) %>
+					<% if reccs.length > 0 %>
+						<%= "Yes" %>
+						<% reccs.each do |recommendation| %>
+							<%= link_to 'Link', '/recommendations/' + recommendation.id.to_s %>
+						<% end %>
+					<% else %>
+					<%= "No" %>
+					<% end %>
+				</div>
+				<div class="col sub-application-text-info">
+					<%= link_to 'View profile', grader_application_path(grader) %>
+					<%= link_to 'Assign to section', '/assign_graders/' + @section.id.to_s + '/select_grader/' + grader.id.to_s %>
+				</div>
+			</div>
+		<% end %>
+			
+	</div>
+    
+  </div>
+	
+</div>
+

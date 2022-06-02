@@ -1,0 +1,19 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  sectionNumber: 1
+  belongs_to: 
+  instructor: MyString
+  instructorEmail: MyString
+  term: MyString
+  buildingAndRoom: MyString
+  numGradersNeeded: 1
+
+two:
+  sectionNumber: 1
+  belongs_to: 
+  instructor: MyString
+  instructorEmail: MyString
+  term: MyString
+  buildingAndRoom: MyString
+  numGradersNeeded: 1

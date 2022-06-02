@@ -1,0 +1,13 @@
+<div id="main-container">
+	<h2>Container-Area</h2>
+	<div id="class-list">
+		<% if flash.any? %>
+			<% flash.each do |key, message| %>
+				<%= message %>
+				<%= link_to 'Back', grader_application_index_path %>
+			<% end %>
+		<% else %>
+			Nothing to see here.
+		<% end %>
+	</div>
+</div>

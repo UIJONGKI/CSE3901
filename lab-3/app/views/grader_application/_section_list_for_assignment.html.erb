@@ -1,0 +1,56 @@
+<% @needing_graders.each do |section| %>
+<div class="sub-section-board">
+  <div class="col sub-section-course-name">
+	  <%= 'CSE ' + section.course.courseNumber.to_s %>
+	  <br>
+	  <%= section.course.courseName %>
+  </div>
+  <div class="col sub-section-section-instructor">
+    <% if section.instructor? %>
+    <%= section.instructor %>
+    <% else %>
+      -
+    <% end %>
+    <br>
+    <% if section.instructorEmail? %>
+    <%= section.instructorEmail %>
+    <% else %>
+      -
+    <%end%>
+  </div>
+  <div class="col sub-section-section-buliding">
+    <%if section.buildingAndRoom? %>
+      <%= section.buildingAndRoom %>
+    <% else %>
+      -
+    <% end %>
+  </div>
+  <div class="col sub-section-section-graders-need">
+    <%= section.grader_assignments.length %>
+  </div>
+  <div class="col sub-section-section-graders-need">
+    <%= section.numGradersNeeded %>
+  </div>
+  <div class= "col sub-section-section-schedule">
+    <%if section.term? %>
+    <%= section.term %>
+    <% else %>
+      -
+    <% end %>
+    <br>
+    <% if !section.section_schedules.empty? %>
+    <% section.section_schedules.each do |section_schedule|%>
+      <p>
+        <%= section_schedule.weekday + ": " + prettyTime(Time.at(section_schedule.startTime)) + " to " + prettyTime(Time.at(section_schedule.endTime))%>
+      </p>
+    <% end %>
+    <% else %>
+      <p> No Schedule </p>
+    <% end %>
+  </div>
+  <div class="col sub-section-section-edit">
+    <p><%= link_to 'View Section', section %></p>
+    <p><%= link_to 'Assign Grader', '/assign_graders/' + section.id.to_s + '/select_grader' %></p>
+  </div>
+</div>
+<% end %>

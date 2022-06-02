@@ -1,0 +1,51 @@
+<div class="sub-section-edit-container">
+	<div class="sub-section-edit-title">
+		<h3>Editing Application Details</h3>
+	</div>
+
+
+<%= form_with url: '/grader/app_edit', method: :put do |form| %>
+	
+	<div class="field">
+	<div class = "sub-section-edit-all">
+	<%= form.label :interest, "Are you interested in grading for this semester?" %>
+	
+	<% if @interest %>
+	<%= form.check_box :interest, checked: true %>
+	<% else %>
+	<%= form.check_box :interest, checked: false %>
+	<% end %>
+	</div>
+	</div>
+	
+	<div class="field">
+	<div class = "sub-section-edit-all">
+	<%= form.label :qualified_courses, "Please list CSE courses that you have completed." %>
+	<%= form.text_area :qualified_courses, size: "70x2", value: @qualifications %>
+	</div>
+	</div>
+	
+	<div class="field">
+	<div class = "sub-section-edit-all">
+	<%= form.label :interested_courses, "Please list CSE courses that you are particular interested in grading for (make sure that they are courses that you have already completed)." %>
+	<%= form.text_area :interested_courses, size: "70x2", value: @interests %>
+	</div>
+	</div>
+	
+	<div class="field">
+	<div class = "sub-section-edit-all">
+	<%= form.label :resume, "(Optional) Feel free to comment more about your general CSE experience." %>
+	<%= form.text_area :resume, size: "70x5", value: @resume %>
+	</div>
+	</div>
+	
+	<div class="field">
+	<div class = "sub-section-edit-all">
+	<%= form.submit "Update Application" %>
+	</div>
+	</div>
+
+<% end %>
+
+<a href="/grader">Back</a>
+</div>

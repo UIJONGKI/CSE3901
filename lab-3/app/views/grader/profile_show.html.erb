@@ -1,0 +1,73 @@
+<div class="sub-admin-container">
+<div id="class-list">
+
+<h3>	
+<%= 'Profile for: ' + @email %>
+</h3>
+
+<br>
+<%= 'Interest in grading this semester: ' + @interest.to_s %>
+<br><br>
+
+<h3>Completed Courses: </h3>
+<%= @qualifications %>
+<br><br>
+<h3>Interested Courses: </h3>
+<%= @interests %>
+<br><br>
+
+<h3>Additional Experience: </h3>
+<%= @resume %>
+<br>
+<%= button_to "Edit Your Application", '/grader/app_edit' , method: :get %>
+
+<br><br><br>
+
+<h3>Available Schedule Times:</h3>
+<br>
+
+<!-- Create Monday list only if it exists -->
+<% if @mondays.length > 0 %>
+	<h3>Monday</h3>
+	<% @mondays.each do |period| %>
+		
+		<!-- locals hash needed to pass |period| into the weekday_time_display partial -->
+		<%= render partial: "weekday_time_display", locals: {period: period} %>
+		
+	<% end %>
+	
+<% end %>
+
+<!-- Do the same for lists of every other day -->
+<% if @tuesdays.length > 0 %>
+	<h3>Tuesday</h3>
+	<% @tuesdays.each do |period| %>
+		<%= render partial: "weekday_time_display", locals: {period: period} %>
+	<% end %>
+<% end %>
+
+<% if @wednesdays.length > 0 %>
+	<h3>Wednesday</h3>
+	<% @wednesdays.each do |period| %>
+		<%= render partial: "weekday_time_display", locals: {period: period} %>
+	<% end %>
+<% end %>
+
+<% if @thursdays.length > 0 %>
+	<h3>Thursday</h3>
+	<% @thursdays.each do |period| %>
+		<%= render partial: "weekday_time_display", locals: {period: period} %>
+	<% end %>
+<% end %>
+
+<% if @fridays.length > 0 %>
+	<h3>Friday</h3>
+	<% @fridays.each do |period| %>
+		<%= render partial: "weekday_time_display", locals: {period: period} %>
+	<% end %>
+<% end %>
+
+<%= button_to "Edit Your Schedule", '/grader/schedule_edit' , method: :get %>
+<br>
+</div>
+</div>

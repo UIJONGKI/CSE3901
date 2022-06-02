@@ -1,0 +1,12 @@
+<div class="sub-section-edit-container">
+	<div class="sub-section-edit-title">
+		<h3>Editing Section of <%=findFormattedCourseNumber(@section)%></h3>
+	</div>
+
+<%= render 'form', section: @section %>
+<div class = "sub-section-edit-all">
+<P><%= link_to 'Show', @section %></P>
+<p></p>
+<a href=<%= '/courses/' + @course_id.to_s %>>Back</a>
+</div>
+</div>

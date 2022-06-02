@@ -1,0 +1,67 @@
+<title>x6</title>
+<header>
+	<h2>Header-aread</h2>
+	<div class="header-area">
+		<h1>x6</h1>
+		<div class="top-area">
+			<h2>Top-Wrap-Area</h2>
+			<ol class="top">
+				<% if !user_signed_in? %>
+				<li class="top-register">
+					<a href="/users/sign_up" title="register">
+						Sign Up
+					</a>
+					
+				</li>
+				<li class="top-login">
+					<a href="/users/sign_in" title="login">
+						Login
+					</a>
+				</li>
+				<% else %>
+				<li>
+					<a href="/users/edit">
+						<%= current_user.email %>
+					</a>
+				</li>
+				<li>
+					<%= button_to "Log out", destroy_user_session_path, method: :delete %>
+				</li>
+				<% end %>
+			</ol>
+
+		</div>
+		<div class="menu-area">
+			<ul class="menu">
+				<% if user_signed_in? %>
+				<li>
+					<a href="/">Home</a>
+				</li>
+				<li>
+					<a href="/recommendations">Recommendations</a>
+				</li>
+				<li>
+					<a href="/courses">Courses</a>
+				</li>
+				<% if user_signed_in? && (current_user.roles_name[0] == 'admin') %>
+				<li>
+					<a href="/admin">Manage User Roles</a>
+				</li>
+				<li>
+					<a href="/assign_graders">Assign Graders</a>
+				</li>
+				<% end %>
+				<% if user_signed_in? && (current_user.roles_name[0] != 'admin') %>
+				<li>
+					<a href="/request">Request Role Change</a>
+				</li>
+				<% end %>
+				<li>
+					<a href="/users/edit">Account Settings</a>
+				</li>
+				<% end %>
+			</ul>
+		</div>
+	</div>
+	
+</header>

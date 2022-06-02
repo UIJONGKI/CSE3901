@@ -1,0 +1,39 @@
+<%= form_with(model: recommendation) do |form| %>
+  <% if recommendation.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(recommendation.errors.count, "error") %> prohibited this recommendation from being saved:</h2>
+
+      <ul>
+        <% recommendation.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %> 
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <div class="sub-rec-edit-all">
+      <%= form.label "Grader Name"%>
+      <%= form.text_field :name%>
+    </div>
+  </div>
+  <div class="field">
+    <div class="sub-rec-edit-all">
+      <%= form.label "Grader Email"%>
+      <%= form.text_field :email%>  
+    </div>
+  </div>
+  <div class="field">
+    <div class="sub-rec-edit-all">
+      <%= form.label "Letter" %>
+      <%= form.text_area :letter %>
+    </div>
+  </div>
+  <%= form.hidden_field :instructor_id, value: current_user.id%>
+
+  <div class="actions">
+    <div class="sub-rec-edit-all">
+      <%= form.submit %>
+    </div>
+  </div>
+<% end %>

@@ -1,0 +1,60 @@
+<p id="notice"><%= notice %></p>
+
+
+<div class="sub-section-container">
+  <div class="sub-section-title">
+    <h3>Sections</h3>
+  </div>
+  <div class="row">
+    <ul class="sub-section-board-nav">
+      <li class="col sub-section-board-nav-section-number">Section Number</li>
+      <li class="col sub-section-board-nav-section-instructor">Instructor</li>
+      <li class="col sub-section-board-nav-section-instructor-email">Instructor Email</li>
+      <li class="col sub-section-board-nav-section-term">Term</li>
+      <li class="col sub-section-board-nav-section-buliding">Building</li>
+      <li class="col sub-section-board-nav-section-graders-need">Graders Need</li>
+      <li class="col sub-section-board-nav-section-edit">Edit</li>
+    </ul>
+    <div class="col-9">
+      <div class="sub-section-board">
+        <div class="col sub-section-section-number">
+          <%= @section.sectionNumber %>
+        </div>
+        <div class="col sub-section-section-instructor">
+          <%if @section.instructor?-%>
+            <%= @section.instructor %>
+          <%else-%>
+            Unassigned
+          <%end%>
+        </div>
+        <div class="col sub-section-section-instructor-email">
+          <%if @section.instructorEmail?-%>
+            <%= @section.instructorEmail %>
+          <%else-%>
+            Unassigned or Unavailable
+          <%end%>
+        </div>
+        <div class="col sub-section-section-term">
+          <%= @section.term %>
+        </div>
+        <div class="col sub-section-section-buliding">
+          <%if @section.buildingAndRoom?-%>
+            <%= @section.buildingAndRoom %>
+          <%else-%>
+            Unassigned
+          <%end%>
+        </div>
+        <div class="col sub-section-section-graders-need">
+          <%= @section.numGradersNeeded %>
+        </div>
+        <div class="col sub-section-section-edit">
+          <% if current_user.roles_name[0] == "admin"%>
+          <p><%= link_to 'Edit', edit_section_path(@section) %></p>
+          <p></p>
+          <% end %>
+          <p><%= link_to 'Back', '/courses/'+@section.course_id.to_s %></p>
+        </div>
+      </div>    
+    </div>
+  </div>
+</div>

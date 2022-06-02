@@ -1,0 +1,61 @@
+<p id="notice"><%= notice %></p>
+
+
+<div class="sub-course-show-container">
+  <div class="sub-course-title">
+    <h3>Course Information</h3>
+  </div>
+  <div class="row">
+    <ul class="sub-course-board-nav">
+      <li class="col sub-course-board-nav-course-number">Course Number</li>
+      <li class="col sub-course-board-nav-course-name">Course Name</li>
+      <li class="col sub-course-board-nav-course-graders">In Class Graders</li>
+      <li class="col sub-course-board-nav-course-edit">Edit</li>
+    </ul>
+    <div class="col-9">
+
+      <div class="sub-course-board">
+        <div class="col sub-course-course-number">
+          <%= @course.courseNumber %>
+        </div>
+        <div class="col sub-course-course-name">
+          <%= @course.courseName %>
+        </div>
+        <div class="col sub-course-course-graders">
+          <%= @course.inClassGraders %>
+        </div>
+        <div class="col sub-course-course-edit">
+          <% if current_user.roles_name[0] == "admin"%>
+          <%= link_to 'Edit', edit_course_path(@course) %>
+          <% end %>
+          <%= link_to 'Back', courses_path %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="sub-course-show-container-two">
+  <div class="sub-course-title">
+    <h3>Available Sections</h3>
+  </div>
+  <div class="row">
+    <ul class="sub-section-board-nav">
+      <li class="col sub-section-board-nav-section-number">Section Number</li>
+      <li class="col sub-section-board-nav-section-instructor">Instructor</li>
+      <li class="col sub-section-board-nav-section-buliding">Location</li>
+      <li class="col sub-section-board-nav-section-graders-need">Graders Assigned</li>
+      <li class="col sub-section-board-nav-section-graders-need">Total Graders Needed</li>
+      <li class="col sub-section-board-nav-section-section-schedule">Schedule</li>
+      <li class="col sub-section-board-nav-section-edit">Edit</li>
+    </ul>
+	<%= render 'section_list' %>
+  <a class="add-section-link" href="/sections/new?course=<%= @course_id %>">Add a Section</a>
+</div>
+	<%# This template will only render if the query course is a valid number %>
+	<%# Course ID is needed to generate an Add Section link as we intend %>
+	
+</div>
+
+
+

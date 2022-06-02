@@ -1,0 +1,26 @@
+<%= form_for(createFormObjFromParam(:filter), 
+              method: :get, 
+              url: courses_path, 
+              html: {class: 'form'}) do |f| %>
+
+  <div class="form-group">
+    <%= f.label(:courseNumber, class: 'control-label') %>
+    <%= f.select :courseNumber, Course.distinct.pluck(:courseNumber).sort!.unshift('') %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label(:inClassGraders)%>
+    <%= f.select :inClassGraders, ['', 'true', 'false'] %>
+  </div>
+
+  <div class="text-right">
+    <%= content_tag(:button,
+                    'Search',
+                    type: 'submit',
+                    class: 'btn btn-info') %>
+  </div>
+
+<% end %>
+<div class="clear-filters">
+  <%= button_to "Clear", courses_path, method: :get %>
+</div>

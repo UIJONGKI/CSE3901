@@ -1,0 +1,25 @@
+<%= form_with(model: @section_schedule) do |form| %>
+	
+<div class = "sub-section-edit-all">
+  <div class="field">
+    
+	<%= form.label :weekday, "Day" %>
+	<%= form.select :weekday, ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"], include_blank: true %>
+  </div>
+
+  <div class="field">
+    	<%= form.label 'Start Time' %>
+    	<%= form.time_field :startTime, value: '%l:%M %p' %>
+  </div>
+
+  <div class="field">
+    	<%= form.label 'End Time' %>
+    	<%= form.time_field :endTime, value: '%l:%M %p' %>
+  </div>
+
+  <div class="actions">
+    	<%= form.submit "Add Time" %>
+  </div>
+  
+</div>
+<% end %>

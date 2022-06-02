@@ -1,0 +1,41 @@
+<p id="notice"><%= notice %></p>
+
+<div class="sub-rec-show-container">
+  <% if @recommendation.grader_id-%>
+    <% grader=User.find(@recommendation.grader_id)%>
+  <% else-%>
+    <% grader= nil%>
+  <%end%>
+  <% i_id = @recommendation.instructor_id%>
+  <div class="sub-rec-title">
+    <h3>Recommendation Letter</h3>
+  </div>
+  <div class="row">
+    <div class="sub-rec-detail">
+      <div class="col sub-rec-detail-container">
+        <h4 class="letter-grader-name">
+          Grader: 
+          <% if grader-%>
+            <%= getFullName(grader.id)%>
+          <% end %>
+          
+        </h4>
+        <dl class="letter-instructor-name">
+          <dt>Written by Instructor: </dt>
+          <dd><%= getFullName(i_id) %></dd>
+        </dl>
+        <dl class="letter-details">
+          <h4>Letter</h4> <br>
+            <%= @recommendation.letter %>
+        </dl>
+        <br>
+        <% if current_user.roles_name[0] != 'student' %>
+        <p><%= link_to 'Edit', edit_recommendation_path(@recommendation) %></p>
+        <% end %>
+      </div>
+      
+    </div>
+    
+  </div>
+</div>
+

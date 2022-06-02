@@ -1,0 +1,94 @@
+
+<% grader = Grader.find_by user_id: current_user.id %>
+
+<% if grader == nil %>
+	If you would like to create a grader profile, click here
+	<%= button_to 'Create Grader Profile', '/grader/create_profile', method: :put %>
+<% else %>
+	<%= button_to 'View Your Grader Profile', '/grader', method: :get %>
+	<br>
+	
+	<%# Display sections that graders have been assigned to here, if they exist %>
+	
+	<% assignments = grader.grader_assignments %>
+	<% if assignments.length > 0 %>
+		
+		<h3>You are currently assigned to:</h3>
+		
+		<div class="row">
+    		<ul class="sub-section-board-nav">
+      		<li class="col sub-section-board-nav-course-name">Course Name</li>
+      		<li class="col sub-section-board-nav-section-instructor">Instructor</li>
+      		<li class="col sub-section-board-nav-section-buliding">Location</li>
+      		<li class="col sub-section-board-nav-section-graders-need">Graders Assigned</li>
+      		<li class="col sub-section-board-nav-section-graders-need">Total Graders Needed</li>
+      		<li class="col sub-section-board-nav-section-section-schedule">Schedule</li>
+      		<li class="col sub-section-board-nav-section-edit">Show</li>
+    		</ul>
+  		</div>
+		
+		<% assignments.each do |assignment| %>
+			
+			<div class="sub-section-board">
+  			<div class="col sub-section-course-name">
+  			
+	  		<%= 'CSE ' + assignment.section.course.courseNumber.to_s %>
+	  		<br>
+	  		<%= assignment.section.course.courseName %>
+  			</div>
+  			<div class="col sub-section-section-instructor">
+    			<% if assignment.section.instructor? %>
+    			<%= assignment.section.instructor %>
+    			<% else %>
+      			-
+    			<% end %>
+    			<br>
+    			<% if assignment.section.instructorEmail? %>
+    			<%= assignment.section.instructorEmail %>
+    			<% else %>
+      			-
+    			<% end %>
+  			</div>
+  			<div class="col sub-section-section-buliding">
+    			<% if assignment.section.buildingAndRoom? %>
+      			<%= assignment.section.buildingAndRoom %>
+    			<% else %>
+      			-
+    			<%end%>
+  			</div>
+  			<div class="col sub-section-section-graders-need">
+    			<%= assignment.section.grader_assignments.length %>
+  			</div>
+  			<div class="col sub-section-section-graders-need">
+    			<%= assignment.section.numGradersNeeded %>
+  			</div>
+  			<div class= "col sub-section-section-schedule">
+    			<% if assignment.section.term? %>
+    			<%= assignment.section.term %> 
+    			<% else %>
+      			-
+    			<%end%>
+    			<br>
+    			<% if !assignment.section.section_schedules.empty? %>
+    			<% assignment.section.section_schedules.each do |section_schedule|%>
+      			<p>
+        			<%= section_schedule.weekday + ": " + prettyTime(Time.at(section_schedule.startTime)) + " to " + prettyTime(Time.at(section_schedule.endTime))%>
+      			</p>
+    			<% end %>
+    			<% else %>
+      			<p> No Schedule </p>
+    			<% end %>
+  			</div>
+  			<div class="col sub-section-section-edit">
+    			<p><%= link_to 'View Section', assignment.section %></p>
+    			
+  			</div>
+			</div>
+			
+		<% end %>
+		
+	<% end %>
+	
+<% end %>
+
+

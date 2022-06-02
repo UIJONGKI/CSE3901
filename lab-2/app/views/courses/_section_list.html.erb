@@ -1,0 +1,41 @@
+<% @sections.each do |section| %>
+<div class="sub-section-board">
+  <div class="col sub-section-section-number">
+	  <%= section.sectionNumber %>
+  </div>
+  <div class="col sub-section-section-instructor">
+    <%if section.instructor?-%>
+    <%= section.instructor %>
+    <%else-%>
+      Unassigned
+    <%end%>
+  </div>
+  <div class="col sub-section-section-instructor-email">
+    <%if section.instructorEmail?-%>
+      <%= section.instructorEmail %>
+    <%else-%>
+      Unassigned or Unavailable
+    <%end%>
+  </div>
+  <div class="col sub-section-section-term">
+    <%= section.term %>
+  </div>
+  <div class="col sub-section-section-buliding">
+    <%if section.buildingAndRoom?-%>
+      <%= section.buildingAndRoom %>
+    <%else-%>
+      Unassigned
+    <%end%>
+  </div>
+  <div class="col sub-section-section-graders-need">
+    <%= section.numGradersNeeded %>
+  </div>
+  <div class="col sub-section-section-edit">
+    <p><%= link_to 'Show', section %></p>
+    <p></p>
+    <p><%= link_to 'Edit', edit_section_path(section) %></p>
+    <p></p>
+    <p><%= button_to "Delete", section_path(section), method: :delete %></p>
+  </div>
+</div>
+<% end %>

@@ -1,0 +1,48 @@
+	<table>
+  	<thead>
+    	<tr>
+      	<th>Sectionnumber</th>
+      	<th>Instructor</th>
+      	<th>Instructoremail</th>
+      	<th>Term</th>
+      	<th>Buildingandroom</th>
+      	<th>Numgradersneeded</th>
+      	<th colspan="3"></th>
+    	</tr>
+  	</thead>
+
+  	<tbody>
+    	<% @sections.each do |section| %>
+      	<tr>
+	<td><%= section.sectionNumber %></td>
+        
+      	<td>
+          <%if section.instructor?-%>
+            <%= section.instructor %>
+          <%else-%>
+            Unassigned
+          <%end%>
+        </td>
+        <td>
+        <%if section.instructorEmail?-%>
+            <%= section.instructorEmail %>
+        <%else-%>
+            Unassigned or Unavailable
+        <%end%>
+        </td>
+        <td><%= section.term %></td>
+        <td>
+        <%if section.buildingAndRoom?-%>
+        	<%= section.buildingAndRoom %>
+        <%else-%>
+            	Unassigned
+        <%end%>
+        </td>
+        <td><%= section.numGradersNeeded %></td>
+        <td><%= link_to 'Show', section %></td>
+        <td><%= link_to 'Edit', edit_section_path(section) %></td>
+        <td><%= link_to "Delete", section_path(section.id), method: :delete %></td>
+      	</tr>
+    	<% end %>
+  	</tbody>
+	</table>
